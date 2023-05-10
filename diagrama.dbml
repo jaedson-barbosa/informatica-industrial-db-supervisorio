@@ -1,0 +1,74 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table "dbo"."TipoUsuario" {
+  "id" INT [pk, increment]
+  "descricao" CHAR(10) [not null]
+}
+
+Table "dbo"."Usuario" {
+  "id" INT [pk, increment]
+  "email" CHAR(50) [not null]
+  "senha" CHAR(50) [not null]
+  "tipo" INT [not null, ref: > "dbo"."TipoUsuario"."id"]
+}
+
+Table "dbo"."Inversor" {
+  "id" INT [pk, increment]
+  "descricao" VARCHAR(50)
+}
+
+Table "dbo"."Tracker" {
+  "id" INT [pk, increment]
+  "controleUFPB" BIT [not null]
+  "inversorId" INT [not null, ref: > "dbo"."Inversor"."id"]
+}
+
+Table "dbo"."String" {
+  "id" INT [pk, increment]
+  "trackerId" INT [not null, ref: > "dbo"."Tracker"."id"]
+}
+
+Table "dbo"."LeituraControleTracker" {
+  "id" INT [pk, increment]
+  "createdAt" DATETIME [not null, default: `GETDATE()`]
+  "anguloLido" FLOAT [not null]
+  "anguloDefinido" FLOAT [not null]
+  "trackerId" INT [not null, ref: > "dbo"."Tracker"."id"]
+}
+
+Table "dbo"."LeituraEstacao" {
+  "id" INT [pk, increment]
+  "createdAt" DATETIME [not null, default: `GETDATE()`]
+  "ghi" INT [not null]
+  "precipitacao" INT [not null]
+  "velocidadeVento" INT [not null]
+  "direcaoVento" INT [not null]
+  "temperaturaAmbiente" INT [not null]
+  "temperaturaPlaca" INT [not null]
+  "humidade" INT [not null]
+}
+
+Table "dbo"."LeituraInversor" {
+  "id" INT [pk, increment]
+  "createdAt" DATETIME [not null, default: `GETDATE()`]
+  "tensao" FLOAT [not null]
+  "corrente" FLOAT [not null]
+  "inversorId" INT [not null, ref: > "dbo"."Inversor"."id"]
+}
+
+Table "dbo"."LeituraString" {
+  "id" INT [pk, not null, increment]
+  "createdAt" DATETIME [not null, default: `GETDATE()`]
+  "tensao" FLOAT [not null]
+  "corrente" FLOAT [not null]
+  "stringId" INT [not null, ref: > "dbo"."String"."id"]
+}
+
+Table "dbo"."LeituraTracker" {
+  "id" INT [pk, not null, increment]
+  "createdAt" DATETIME [not null, default: `GETDATE()`]
+  "tensao" FLOAT [not null]
+  "corrente" FLOAT [not null]
+  "trackerId" INT [not null, ref: > "dbo"."Tracker"."id"]
+}
