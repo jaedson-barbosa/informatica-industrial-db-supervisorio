@@ -1,5 +1,6 @@
 // Use DBML to define your database structure
 // Docs: https://dbml.dbdiagram.io/docs
+// App: https://dbdiagram.io/
 
 Table "dbo"."TipoUsuario" {
   "id" INT [pk, increment]
