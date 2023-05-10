@@ -11,7 +11,7 @@ VALUES
     ('aluno');
 
 INSERT INTO [dbo].[Usuario]
-    (email, senha, tipoId)
+    (email, senha, tipo)
 VALUES
     ('aluno@test.com', '123456', 3);
 
