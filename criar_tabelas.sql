@@ -38,7 +38,7 @@ CREATE TABLE [dbo].[String]
     [trackerId] INT NOT NULL FOREIGN KEY REFERENCES [dbo].[Tracker] ([id])
 );
 
--- E por fim adicionamos as tabelas de leituras
+-- Adicionamos as tabelas de leituras
 
 CREATE TABLE [dbo].[LeituraControleTracker]
 (
@@ -88,3 +88,20 @@ CREATE TABLE [dbo].[LeituraTracker]
     [corrente] FLOAT NOT NULL,
     [trackerId] INT NOT NULL FOREIGN KEY REFERENCES [dbo].[Tracker] ([id])
 );
+
+-- E por fim adicionamos os registros de alarmes e eventos
+
+CREATE TABLE [dbo].[Eventos]
+(
+    [id] INT IDENTITY (1, 1) NOT NULL PRIMARY KEY,
+    [createdAt] DATETIME DEFAULT GETDATE() NOT NULL,
+    [descricao] VARCHAR(50)
+)
+
+CREATE TABLE [dbo].[Alarmes]
+(
+    [id] INT IDENTITY (1, 1) NOT NULL PRIMARY KEY,
+    [createdAt] DATETIME DEFAULT GETDATE() NOT NULL,
+    [descricao] VARCHAR(50),
+    [reconhecido] DATETIME
+)
